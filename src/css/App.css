@@ -1,0 +1,231 @@
+#root{
+  height: 100%;
+}
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+.logo-box{
+  width:250px;
+  float:left;
+  height: 64px;
+}
+.App-header {
+  height: 64px;
+  background-color:#438eb9;
+  color: white;
+}
+.lg-text{
+  font-size:20px;
+  text-shadow: 0 2px 5px rgba(0,0,0,.4);
+}
+.ly-sider{
+  background:#fff;
+}
+.lgmenu-Box{
+  float:right;
+  width:150px;
+  padding-right:10px;
+  height: 64px;
+  text-align: right;
+  background-color: #62a8d1;
+}
+.bdg-Box{
+  float:right;
+  width:50px;
+  background-color: #62a8d1;
+  text-align: center;
+  margin-right: 10px;
+
+}
+.App-content {
+  min-height: 1000px;
+  background-color:white;
+  color: white;
+  padding: 24px; 
+  margin: 0;
+  border-radius: 10px;
+}
+.App-footer {
+ background-color:rgb(125,188,234);
+  color: black;
+  height:20;
+}
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.gutter-example .ant-row > div {
+  background: transparent;
+  border: 0;
+}
+.gutter-box {
+  background: #00A0E9;
+  padding: 5px 0;
+}
+.ant-back-top-inner {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  border-radius: 4px;
+  background-color: #1088e9;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+}
+.carousel{
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #364d79;
+  color: #fff;
+  overflow: hidden;
+}
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #364d79;
+  color: #fff;
+  overflow: hidden;
+}
+.sukList{
+  float: left;
+  margin-left: 25px;
+}
+
+/*after clean float*/
+.clearfix:after{
+  content: "020"; 
+  display: block; 
+  height: 0; 
+  clear: both; 
+  visibility: hidden;  
+  }
+.statistics-text{
+  padding:10px 0;
+  margin-bottom: 20px;
+  border-top:1px solid #dfdfdd;
+  border-bottom:1px solid #dfdfdd;
+}
+.statistics-text label{
+    font-weight: bold;
+  }
+.statistics-text span{
+  margin-left: 15px;
+}
+label{
+  font-weight: bold;
+  color:#333
+}
+
+/* 表格样式 */
+.ant-table-thead > tr > th, .ant-table-tbody > tr > td{
+  padding: 8px !important;
+}
+
+/* textAlign start */
+.text-center{
+  text-align: center;
+}
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
+/* textAlign end */
+
+/* margin start */
+.ml-10{
+  margin-left: 10px;
+}
+.mr-10{
+  margin-right: 10px;
+}
+.mt-10{
+  margin-top: 10px;
+}
+.mb-10{
+  margin-bottom: 10px;
+}
+.ml-15{
+  margin-left: 15px;
+}
+.mr-15{
+  margin-right: 15px;
+}
+.ml-20{
+  margin-left: 20px;
+}
+.mr-20{
+  margin-right: 20px;
+}
+.mt-20{
+  margin-top: 20px;
+}
+.mb-20{
+  margin-bottom: 20px;
+}
+/* margin start */
+
+/* padding start */
+.pb-5{
+  padding-bottom: 5px;
+}
+.pt-5{
+  padding-top: 5px;
+}
+.pr-5{
+  padding-right: 5px;
+}
+.pl-5{
+  padding-left: 5px;
+}
+
+.pb-10{
+  padding-bottom: 10px;
+}
+.pt-10{
+  padding-top: 10px;
+}
+.pr-10{
+  padding-right: 10px;
+}
+.pl-10{
+  padding-left: 10px;
+}
+/* padding end */
+
+
+/* login start */
+.login-container {
+  padding-top:1px;
+  height: 100%;
+  background:url('../imgs/login-bg.png') ;
+}
+.login-content {
+  width: 370px;
+  margin: 300px auto 0;
+  padding: 60px 0 30px;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #9c9c9c;
+  box-shadow: 0 0 10px rgba(0,0,0,.3);
+}
+.login-container .login-form {
+  margin:0 auto;
+  max-width: 300px;
+}
+.login-container .login-form-forgot {
+  float: right;
+}
+.login-container .login-form-button {
+  width: 100%;
+}
+/* login end */
+

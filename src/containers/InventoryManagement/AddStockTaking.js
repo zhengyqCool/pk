@@ -1,0 +1,178 @@
+import React, { Component } from 'react';
+import { Input, Table, Button, Row, Col,Pagination,Icon,DatePicker,Select,Tooltip,Popconfirm,message,InputNumber } from 'antd';
+import {PropTypes} from 'prop-types';
+import { connect } from 'react-redux';
+import * as breadActions from '../../actions/breadActions';
+import {
+  Link,
+} from 'react-router-dom';
+
+const Option = Select.Option;
+const { MonthPicker, RangePicker } = DatePicker;
+const Search = Input.Search;
+
+
+class AddStockTaking extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            searchText:'',
+            value:0,
+            dataSource:[]
+        }
+        this.columns = [{
+            title: '盘点编号',
+            dataIndex: 'checkNo',
+            key: 'checkNo',
+        }, {
+            title: '商品名称',
+            dataIndex: 'goodsName',
+            key: 'goodsName',
+        }, {
+            title: '规格',
+            dataIndex: 'norms',
+            key: 'norms',
+        },{
+            title: '特征值',
+            dataIndex: 'eigenvalue',
+            key: 'eigenvalue',
+        },{
+            title: '品牌',
+            dataIndex: 'goodsbrand',
+            key: 'goodsbrand',
+        },{
+            title: '货架',
+            dataIndex: 'shelf',
+            key: 'shelf',
+        },{
+            title: '货位',
+            dataIndex: 'pallet',
+            key:'pallet'
+        },{
+            title: '库存',
+            dataIndex: 'inventory',
+            key:'inventory'
+        },{
+            title: '实际库存',
+            dataIndex: 'goodsNum',
+             render:(text,obj,index)=>(<InputNumber min={0} defaultValue={0} onChange={(value)=>console.log(value)} /> )
+        },{
+            title: '误差',
+            dataIndex: 'diff',
+            render:(text,obj,index)=>(<span>6</span> )
+        }];
+    }
+    componentDidMount() {
+        let dispatch = this.props.dispatch;
+        dispatch(breadActions.setBreads(['主页', '库存管理','库存盘点','新增盘点']));
+    }
+    onChangeFc(value){
+        switch(value){
+            case '1':
+                this.setState({value:value});
+                break;
+            case '2':
+                this.setState({value:value});
+                break;
+            case '3':
+                this.setState({value:value});
+                break;
+            case '4':
+                this.setState({value:value});
+                break;
+            default:
+                this.setState({value:0});
+        }
+    }
+
+    start = ()=>{
+        let data = [{
+                key: '1',
+                checkNo: '001',
+                goodsName:'某某商品',
+                norms: '10*20g',
+                eigenvalue:'味道',
+                goodsbrand:'哇哈哈',
+                shelf:'1#货架',
+                pallet:'4号位',
+                inventory:'库存'
+            },{
+                key: '2',
+                checkNo: '002',
+                goodsName:'某某商品',
+                norms: '10*20g',
+                eigenvalue:'味道',
+                goodsbrand:'哇哈哈',
+                shelf:'1#货架',
+                pallet:'4号位',
+                inventory:'库存'
+            }]
+
+        this.setState({
+            dataSource:data
+        })
+    }
+    confirmFinish = (e)=>{
+        console.log(e);
+        message.success('Click on Yes');
+    }
+
+    render() {
+        const  val  = this.state.value;
+        console.log(val);
+        const confirmTips = '完成后将生成盘点记录，更新库存不可修改，如果您未完成，建议您先保存。你确定完成吗？';
+        const saveTips = '保存后，可在继续盘点页面中找到该盘点继续盘点';
+        return (
+           <div style={styles.container}>
+               <div className="mb-10">
+                    <Row>
+                        <Col span={8}>
+                            <Select defaultValue="选择盘点计划" style={{ minWidth: 200 }} onChange={(value)=> this.onChangeFc(value)}>
+                                <Option value="1">分类</Option>
+                                <Option value="2">货架</Option>
+                                <Option value="3">商品</Option>
+                                <Option value="4">库存</Option>
+                            </Select>
+                        </Col>
+                        <Col span={8}>
+                            {val}
+                        </Col>
+                        <Col span={4}>
+                            <p>查询条件按需求增加</p>
+                        </Col>
+                        <Col span={4} className="textRight">
+                            <Button type="primary" onClick={this.start}>开始</Button>
+                            <Button className="ml-10" onClick={()=>this.props.history.go(-1)} >返回</Button>
+                        </Col>
+                    </Row>
+               </div>
+               <Table  pagination={false} dataSource={this.state.dataSource} columns={this.columns} />
+               <div className="text-center mt-10">
+                    <Popconfirm 
+                        title={confirmTips} 
+                        onConfirm={this.confirmFinish.bind(this)} 
+                        okText="确定" 
+                        cancelText="取消"
+                    >
+                        <Button type="primary">完成盘点</Button>
+                    </Popconfirm>
+                    <Tooltip placement="right" title={saveTips} arrowPointAtCenter>
+                        <Button className="ml-10">保存</Button>
+                    </Tooltip>
+               </div>
+            </div>
+        )
+    }
+}
+
+const styles = {
+    container:{
+        color:'#333'
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+    }
+}
+export default connect(mapStateToProps)(AddStockTaking);
