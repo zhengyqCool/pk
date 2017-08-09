@@ -217,7 +217,6 @@ class EditableCell extends Component {
             <div className="editable-cell">
                 <div className="editable-cell-input-wrapper">
                     <AutoComplete
-                        value={this.state.value}
                         style={{ width: 160 }}
                         dropdownMatchSelectWidth={false}
                         dataSource={this.state.optionData}

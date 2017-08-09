@@ -60,6 +60,10 @@ class AddAutoReplenishment extends Component {
         ];
     }
 
+    componentDidMount() {
+        let dispatch = this.props.dispatch;
+        dispatch(breadActions.setBreads(['主页', '仓内操作','补货列表','自动补货']));
+    } 
 
     onDelete = (index) => { //删除
         const dataSource = [...this.state.MockData];
@@ -72,19 +76,24 @@ class AddAutoReplenishment extends Component {
         console.log(id);
     }
 
+    selectTime = (date,dateString)=> {
+        
+    }
 
-    componentDidMount() {
-        let dispatch = this.props.dispatch;
-        dispatch(breadActions.setBreads(['主页', '仓内操作','补货列表','自动补货']));
-    } 
-    
+
     render() {
         return (
             <div>
                 <Row className="mb-10">
                     <Col span={12}>
                         <label>选择时间 : </label>
-                        <RangePicker onChange={(value)=> console.log(value)} />
+                        <RangePicker
+                            format="YYYY-MM-DD HH:mm:ss"
+                            showTime={{
+                                hideDisabledOptions: true,
+                            }}  
+                            onChange={(date,dateString)=> this.selectTime} 
+                        />
                     </Col>
                     <Col span={12} className="text-right">
                         <Button type="primary" onClick={()=>{this.props.history.go(-1)}}>返回</Button>

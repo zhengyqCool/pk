@@ -85,7 +85,7 @@ class App extends Component {
                             <Route path='/warehouseManagement/sheflManagement/ShelfList/:ckid' component={ShelfList} /> 
                             <Route path='/warehouseManagement/sheflManagement/salverManangement/SalverList/:sId' component={SalverList} /> 
                             <Route path='/warehouseManagement/sheflManagement/editShelf/LookShelf/:sId' component={LookShelf} /> 
-                             <Route path ='/warehouseManagement/sheflManagement/AddShelf/:adid' component={AddShelf}/> 
+                             <Route path ='/warehouseManagement/sheflManagement/AddShelf/:sId' component={AddShelf}/> 
                             {/* <Route path ='/warehouseLayout/ShelfModification/:adid' component={ShelfModification}/> */}
                             <Route path='/warehouseLayout/GoodsWarehousing' component={GoodsWarehousing} />
                             <Route path='/warehouseLayout/AddGoodsWarehousing/:adid' component={AddGoodsWarehousing} />

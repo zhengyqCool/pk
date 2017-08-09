@@ -123,6 +123,11 @@ label{
   color:#333
 }
 
+h1,h2,h3,h4,h5,h6{
+  color:#333;
+  font-size: 14px;
+}
+
 /* 表格样式 */
 .ant-table-thead > tr > th, .ant-table-tbody > tr > td{
   padding: 8px !important;
@@ -141,6 +146,18 @@ label{
 /* textAlign end */
 
 /* margin start */
+.mt-5{
+  margin-top: 5px;
+}
+.mb-5{
+  margin-bottom: 5px;
+}
+.ml-5{
+  margin-left: 5px;
+}
+.mr-5{
+  margin-right: 5px;
+}
 .ml-10{
   margin-left: 10px;
 }

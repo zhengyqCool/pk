@@ -3,9 +3,8 @@ import { Input, Table, Button, Row, Col,Pagination,Icon,DatePicker,Select,Radio}
 import {PropTypes} from 'prop-types';
 import { connect } from 'react-redux';
 import * as breadActions from '../../actions/breadActions';
-import {
-  Link,
-} from 'react-router-dom';
+import * as cont from '../../../../config/constant';
+
 
 const { MonthPicker, RangePicker } = DatePicker;
 const Search = Input.Search;
@@ -79,10 +78,35 @@ class ReplenishmentList extends Component {
             ]
         }
     }
-    componentDidMount() {
+    componentWillMount(){
         let dispatch = this.props.dispatch;
         dispatch(breadActions.setBreads(['主页', '仓内操作','补货列表']));
+
     }
+
+    getReplenishment(){
+        fetch(cont.getURL(cont.shiftgoodsOrderListUrl),{
+                method:'POST',
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body:cont.getPostParams({
+                    pagesize:0
+                })
+            }).then(function(response){
+                return response.json()
+            }).then(function(data){
+                if(data.code == 0){
+                    
+                }else{
+                    message.error(data.errmsg)
+                }
+            },function(error){
+                console.log(error);
+            })
+    }
+
     editA(ap) {
         if(ap != null){
             this.props.history.push('/warehouseLayout/addPalletReplenishment/'+ap.id);
