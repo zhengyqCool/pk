@@ -60,6 +60,15 @@ class EditableCell extends Component {
     }
 }
 
+
+//<EditableCell
+//    dispatch={props.dispatch}
+//   index={index}
+//    text={text}
+//    record={record}
+//    dataSource={this.props.goodsDataSource.initData}
+///>
+
 // //商品名称
 // class EditableCellGoods extends Component {
 //     constructor(props) {
@@ -118,6 +127,7 @@ const shelfOptions = [
         }
     ];
 
+
 class EditableTable extends Component {
     constructor(props) {
         super(props);
@@ -128,17 +138,11 @@ class EditableTable extends Component {
         }
         this.columns = [
             {
-                title: '商品编号（输入商品编号或名称选择商品）',
+                title: '商品编号',
                 dataIndex: 'goodsNo',
                 width:'18%',
                 render: (text, record, index) => (
-                    <EditableCell
-                        dispatch={props.dispatch}
-                        index={index}
-                        text={text}
-                        record={record}
-                        dataSource={this.props.goodsDataSource.initData}
-                    />
+                    <Input onPressEnter={e=> console.log(e.target.value)} placeholder="请输入商品编码"/>
                 ),
             },
             {
@@ -181,14 +185,7 @@ class EditableTable extends Component {
             },{
                 title: '操作',
                 dataIndex: 'operation',
-                render: (text, record, index) => {
-                    return (
-                        this.props.goodsList.length > 1 ?
-                            <a onClick={()=>this.onDelete(index)} href="javascript:;">删除</a>
-                            : 
-                            null
-                    );
-                },
+                render: (text, record, index) => <a onClick={()=>this.onDelete(index)} href="javascript:;">删除</a>,
             }
         ];
     }

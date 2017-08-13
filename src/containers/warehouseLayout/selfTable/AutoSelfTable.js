@@ -41,7 +41,7 @@ class EditableTable extends Component {
             {
                 title: '货架/货位',
                 dataIndex: 'shelf',
-                render:(ext, record, index)=> (
+                render:(text, record, index)=> (
                     <Cascader
                         style={{width:'100%'}}
                         options={this.props.dataSource[index].shelf}
@@ -55,14 +55,14 @@ class EditableTable extends Component {
             {
                 title: '数量',
                 dataIndex: 'goodsNum',
-                render:(ext, record, index)=> (
+                render:(text, record, index)=> (
                     <InputNumber min={1} max={100000} defaultValue={0} onChange={(e)=> console.log(e)} />
                 )
             },
             {
                 title: '备注',
                 dataIndex: 'note',
-                render:(ext, record, index)=> (
+                render:(text, record, index)=> (
                     <Input placeholder="请输入备注" onPressEnter={this.handleAdd}/>
                 )
             },

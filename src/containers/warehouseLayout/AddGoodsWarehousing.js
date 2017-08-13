@@ -32,9 +32,6 @@ class AddGoodsWarehousing extends Component {
         }else{
             dispatch(breadActions.setBreads(['主页', '商品入库', '手动入库']));
         }
-        
-        
-        
         this.initDataSource() 
     }   
 
@@ -159,7 +156,7 @@ class AddGoodsWarehousing extends Component {
             <div>
                 <Form onSubmit={this.handleSubmit.bind(this)}>
                     <Row>
-                        <Col span={5}>
+                        <Col span={6}>
                             <FormItem label='选择仓库' {...formItemLayout} >
                                 {getFieldDecorator('warehouse', {
                                     rules: [{ required: true, message: '请选择仓库！' }],
@@ -170,7 +167,7 @@ class AddGoodsWarehousing extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col span={5}>
+                        <Col span={6}>
                             <FormItem label='验收单号' {...formItemLayout} >
                                 {getFieldDecorator('ysdNo', {
                                     rules: [{ required: true, message: '请输入验收单号！' }],
@@ -186,15 +183,6 @@ class AddGoodsWarehousing extends Component {
                             </FormItem>
                         </Col>
                         <Col span={6}>
-                            <FormItem label='入库时间' {...formItemLayout}>
-                                {getFieldDecorator('rkTime', {
-                                    rules: [{ required: true, message: '请选择时间！' }],
-                                })(
-                                   <DatePicker style={{ width: '100%' }} onChange={() => console.log(123)} />
-                                )}
-                            </FormItem>
-                        </Col>
-                        <Col span={4}>
                             <FormItem label='入库人' {...formItemLayout}>
                                 {getFieldDecorator('rkr', {
                                     rules: [{ required: true, message: '请输入入库人！' }],
@@ -203,7 +191,7 @@ class AddGoodsWarehousing extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col span={4}>
+                        <Col span={6}>
                             <Form.Item className="text-right">
                                 {(this.props.match.params.adid == 'zd')? 
                                     <Button htmlType="submit" disabled={this.hasErrors(getFieldsError())} >开始</Button>

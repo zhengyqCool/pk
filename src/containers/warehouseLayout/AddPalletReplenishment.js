@@ -299,33 +299,33 @@ class AddPalletReplenishment extends Component {
         //     })
 
         let data = [{
-                key: '1',
-                code: '001',
-                name:'1#仓库',
-                createTime:'2017-08-08',
-                address: '大学科技园',
-                operator:'张颂',
-                status:false,
-                id:1
-            },{
-                key: '2',
-                code: '002',
-                name:'2#仓库',
-                address: '大学科技园',
-                createTime:'2017-08-08',
-                operator:'张颂',
-                status:true,
-                id:2
-            },{
-                key: '3',
-                code: '003',
-                name:'3#仓库',
-                address: '大学科技园',
-                createTime:'2017-08-08',
-                operator:'张颂',
-                status:false,
-                id:2
-            }]
+            key: '1',
+            code: '001',
+            name:'1#仓库',
+            createTime:'2017-08-08',
+            address: '大学科技园',
+            operator:'张颂',
+            status:false,
+            id:1
+        },{
+            key: '2',
+            code: '002',
+            name:'2#仓库',
+            address: '大学科技园',
+            createTime:'2017-08-08',
+            operator:'张颂',
+            status:true,
+            id:2
+        },{
+            key: '3',
+            code: '003',
+            name:'3#仓库',
+            address: '大学科技园',
+            createTime:'2017-08-08',
+            operator:'张颂',
+            status:false,
+            id:2
+        }]
         this.setState({ warehouseList:data })
     }
 
