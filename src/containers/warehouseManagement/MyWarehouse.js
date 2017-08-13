@@ -174,7 +174,7 @@ class myGoodsShelf extends Component {
                 }
             }))
         */
-        
+        console.log(1);
         let goodsListData = this.state.goodsListData;
 
         for(let i = 0; i < goodsListData.length; i++){

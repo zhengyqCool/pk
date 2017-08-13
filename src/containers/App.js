@@ -27,6 +27,7 @@ import PalletReplenishment from './warehouseLayout/PalletReplenishment';
 import ReplenishmentList from './warehouseLayout/ReplenishmentList';
 import AddAutoReplenishment from './warehouseLayout/AddAutoReplenishment';
 import AddPalletReplenishment from './warehouseLayout/AddPalletReplenishment';
+import ReplenishmentListDetails from './warehouseLayout/ReplenishmentListDetails';
 
 import MyWarehouse from './warehouseManagement/MyWarehouse';
 import AddWarehouse from './warehouseManagement/AddWarehouse';
@@ -93,6 +94,7 @@ class App extends Component {
                             <Route path='/warehouseLayout/PalletReplenishment' component={PalletReplenishment} />
                             <Route path='/warehouseLayout/ReplenishmentList' component={ReplenishmentList} />
                             <Route path='/warehouseLayout/AddPalletReplenishment/:adid' component={AddPalletReplenishment} />
+                            <Route path='/warehouseLayout/ReplenishmentListDetails/:adid' component={ReplenishmentListDetails} />
                             <Route path='/warehouseLayout/AddAutoReplenishment' component={AddAutoReplenishment} />
                             <Route path='/orderStrators/orderStatistics' component={orderStatistics} />
                             

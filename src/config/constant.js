@@ -17,8 +17,11 @@ export let updatecargospaceUrl =  '/warehouse/updatecargospace.htm';//编辑货�
 export let newcargospaceUrl =  '/warehouse/newcargospace.htm';//新建货位
 export let delcargospaceUrl =  '/warehouse/delcargospace.htm';//删除货位
 
-export let shiftgoodsOrderListUrl =  '/repertory/shiftgoodsOrderList.htm';//删除货位
-
+export let shiftgoodsOrderListUrl =  '/repertory/shiftgoodsOrderList.htm';//补货列表finish
+export let replenishmentListUrl =  '/repertory/replenishmentList';//手动补货  商品编号找商品
+export let doReplenishmentUrl =  '/repertory/doReplenishment.htm';//手动补货单提交
+export let autoReplenishmentByImpermanentUrl =  '/repertory/autoReplenishmentByImpermanent.htm';//手动补货单保存
+export let finishReplenishmentUrl =  '/repertory/finishReplenishment.htm';//提交并更新库存
 
 
 export let aaa2url='/ss/fsf/ww.htm';

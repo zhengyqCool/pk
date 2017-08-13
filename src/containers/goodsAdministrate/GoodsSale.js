@@ -79,7 +79,7 @@ class GoodsSale extends Component {
                 render:(text,record,index) => {
                     return (
                         <div>
-                            <Operation sxjState={record.sxjState} record={record} /> | <a href="javascript:;" onClick={() => this.editA(record)} >编辑/查看</a>
+                            <Operation sxjState={record.sxjState} record={record} /> | <a href="javascript:;" onClick={() => this.editA(record,index)} >编辑/查看</a>
                         </div>
                     )
                 }
@@ -94,7 +94,6 @@ class GoodsSale extends Component {
                     shelf:'1#货架',
                     pallet:'4号位',
                     sxjState:false,
-                    id:1
                 },{
                     key: '2',
                     goodsNo: '002',
@@ -115,7 +114,7 @@ class GoodsSale extends Component {
         dispatch(breadActions.setBreads(['商品管理', '商品上架']));
     }
     //编辑
-    editA(o){
+    editA(o,index){
         /*** 
             fetch(PATH + '',{
                 method: "POST",
@@ -276,7 +275,7 @@ class ModalBody extends Component {
                                     getFieldDecorator('price', {
                                         rules: [{ required: false, message: '请输入价格' }],
                                         initialValue:''
-                                    })(<Input disabled={this.props.sxjState} type="text" placeholder='请输入价格' />)
+                                    })(<Input defaultValue={'123123'} disabled={this.props.sxjState} type="text" placeholder='请输入价格' />)
                                 }
                             </Form.Item>
                         </Col>
@@ -286,7 +285,7 @@ class ModalBody extends Component {
                                     getFieldDecorator('qpl', {
                                         rules: [{ required: false, message: '请输入起批量' }],
                                         initialValue:''
-                                    })(<Input disabled={this.props.sxjState} type="text" placeholder='请输入起批量' />)
+                                    })(<Input value={'123123'} disabled={this.props.sxjState} type="text" placeholder='请输入起批量' />)
                                 }
                             </Form.Item>
                         </Col>
