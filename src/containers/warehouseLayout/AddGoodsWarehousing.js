@@ -7,15 +7,17 @@ import * as cont from '../../config/constant';
 
 const Option = Select.Option;
 
+let time;
 class AddGoodsWarehousing extends Component {
     constructor(props) {
         super(props);
         this.state = { 
             warehouseList:[],//仓库列表
             warehouseName:'',//仓库名称
-            dataSource:[],
-            shelfDateSource:[],
-            goodsOptionL:[],
+            dataSource:[],//入库商品数据源
+            shelfDateSource:[], //选择货架
+            goodsList:[],// 输入商品名称  选中商品
+            goodsNameValue:'',
             cont:0,
         }
         this.columns = [
@@ -33,16 +35,15 @@ class AddGoodsWarehousing extends Component {
                 dataIndex: 'name', 
                 width:'18%',
                 render:(text,record,index)=>{
-                    console.log(text);
                     return( 
                         <AutoComplete
+                            value={ this.state.dataSource[index].name} 
                             style={{ width: 230 }}
-                            dataSource={[]}
-                            value={text}
+                            dataSource={this.state.goodsList}
                             placeholder="输入商品名称选择商品"
                             disabled={(typeof record.code === 'undefined')?false:true}
                             filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-                            onChange={(value)=> this.selectGoods(value)}
+                            onChange={(value)=>this.selectGoods(value,index)}
                         />
                     )
                 }   
@@ -87,6 +88,8 @@ class AddGoodsWarehousing extends Component {
         let dispatch = this.props.dispatch;
         dispatch(breadActions.setBreads(['主页', '仓内操作','补货列表','手动补货']));
         this.getWarehouse();
+
+         console.log(this.state.goodsList);
     }
     getWarehouse(){
         // fetch(cont.getURL(cont.bccc),{
@@ -137,61 +140,83 @@ class AddGoodsWarehousing extends Component {
         this.setState({ warehouseList:data })
     }
 
-    selectGoods(value){
-        // fetch(cont.getURL(url),{
-        //     method:'POST',
-        //     headers:{
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body:cont.getPostParams({
-        //         goodsName:value,
-        //     })
-        // }).then(function(response){
-        //     return response.json()
-        // }).then(function(data){
-        //     if(data.code == 0){
-                
-        //     }else{
-        //         message.error(data.errmsg)
-        //     }
-        // },function(error){
-        //     console.log(error);
-        // })
+    selectGoods(value,index){
+        const { dataSource } = this.state;
+        dataSource[index].name = value;
+        if(time) clearTimeout(time); //Debouncing 处理
+        time = setTimeout(()=>{
+            // fetch(cont.getURL(url),{
+            //     method:'POST',
+            //     headers:{
+            //         'Accept': 'application/json',
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body:cont.getPostParams({
+            //         goodsName:value,
+            //     })
+            // }).then(function(response){
+            //     return response.json()
+            // }).then(function(data){
+            //     if(data.code == 0){
+                    
+            //     }else{
+            //         message.error(data.errmsg)
+            //     }
+            // },function(error){
+            //     console.log(error);
+            // })
 
-        const data = [
-            {
-                name:'冰红茶1',
-                goodsId:01,
-                guige:'100ml',
-                unit:'瓶'
-            },{
-                name:'冰红茶2',
-                goodsId:02,
-                guige:'100ml',
-                unit:'瓶'
-            },{
-                name:'冰红茶3',
-                goodsId:03,
-                guige:'100ml',
-                unit:'瓶'
-            },{
-                name:'冰红茶4',
-                goodsId:04,
-                guige:'100ml',
-                unit:'瓶'
-            },{
-                name:'冰红茶5',
-                goodsId:05,
-                guige:'100ml',
-                unit:'瓶'
-            },
-        ]
-
-        data.forEach((obj,index)=>{
-            obj.key = index
-        })
-        
+            const data = [
+                {
+                    name:'冰红茶1',
+                    goodsId:1,
+                    guige:'100ml',
+                    unit:'瓶'
+                },{
+                    name:'冰红茶2',
+                    goodsId:2,
+                    guige:'100ml',
+                    unit:'瓶'
+                },{
+                    name:'冰红茶3',
+                    goodsId:3,
+                    guige:'100ml',
+                    unit:'瓶'
+                },{
+                    name:'冰红茶4',
+                    goodsId:4,
+                    guige:'100ml',
+                    unit:'瓶'
+                },{
+                    name:'冰红茶5',
+                    goodsId:5,
+                    guige:'100ml',
+                    unit:'瓶'
+                },
+            ]
+            
+            let arr = [];
+            data.forEach((obj,index)=>{
+                obj.key = index;
+                let str = obj.name;
+                arr.push(str);
+            })
+            this.setState({
+                goodsList:arr,
+                goodsNameValue:value,
+                dataSource
+            })
+        },300);
+    }
+    
+    handleSelect(value,index){
+        const { dataSource } = this.state;
+        let arr = [];
+        if(value !== null){
+            arr = value.split('/');
+        }
+        dataSource[index].name = arr[0]
+        this.setState({ dataSource });
     }
 
     handleOnChange(value,index,key){

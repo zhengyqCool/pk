@@ -79,7 +79,7 @@ class GoodsSale extends Component {
                 render:(text,record,index) => {
                     return (
                         <div>
-                            <Operation sxjState={record.sxjState} record={record} /> | <a href="javascript:;" onClick={() => this.editA(record,index)} >编辑/查看</a>
+                            <Operation changesxjState={this.changesxjState.bind(this)} sxjState={record.sxjState} record={record} index={index} /> | <a href="javascript:;" onClick={() => this.editA(record)} >编辑/查看</a>
                         </div>
                     )
                 }
@@ -94,6 +94,11 @@ class GoodsSale extends Component {
                     shelf:'1#货架',
                     pallet:'4号位',
                     sxjState:false,
+                    id:1,
+                    price:100,
+                    qpl:100,
+                    scDate:"",
+                    setBc:100
                 },{
                     key: '2',
                     goodsNo: '002',
@@ -104,17 +109,42 @@ class GoodsSale extends Component {
                     shelf:'1#货架',
                     pallet:'4号位',
                     sxjState:true,
-                    id:2
-                },
+                    id:2,
+                    price:200,
+                    qpl:200,
+                    scDate:"",
+                    setBc:200
+                },{
+                key: '3',
+                goodsNo: '003',
+                goodsName:'某某商品',
+                norms: '10*200g',
+                eigenvalue:'味道',
+                goodsbrand:'哇哈哈',
+                shelf:'1#货架',
+                pallet:'4号位',
+                sxjState:true,
+                id:3,
+                price:300,
+                qpl:300,
+                scDate:"",
+                setBc:300
+            }
             ]
         }
+    }
+    changesxjState(index){
+        console.log(index,this.state.dataSource);
+        let dataSource=this.state.dataSource;
+        dataSource[index].sxjState=!dataSource[index].sxjState;
+        this.setState({dataSource});
     }
     componentDidMount() {
         let dispatch = this.props.dispatch;
         dispatch(breadActions.setBreads(['商品管理', '商品上架']));
     }
     //编辑
-    editA(o,index){
+    editA(o){
         /*** 
             fetch(PATH + '',{
                 method: "POST",
@@ -131,12 +161,11 @@ class GoodsSale extends Component {
             }).done();
         ****/
         this.setState({
-            // ModalData: fetch data,
+            ModalData: o,
             visible:true,
             sxjState:o.sxjState
         })
     }
-    
     //搜索
     onSearch(value){
         /*** 
@@ -214,8 +243,7 @@ class Operation extends Component {
     }
 
     //上下架
-    goodsSj(){
-
+    goodsSj(record,index){
     /*** 
         fetch(PATH + '',{
             method: "POST",
@@ -231,15 +259,14 @@ class Operation extends Component {
             console.error(error);
         }).done();
     ****/
-
-        
+    this.props.changesxjState(index);
         this.setState({
             sxjState:!this.state.sxjState
         })
     }
     render(){
         return(
-             <a onClick={()=>this.goodsSj()} style={{color:(this.state.sxjState?'#108ee9':'red')}} href="javascript:;" >{this.state.sxjState?'上架':'下架'}</a>
+             <a onClick={()=>this.goodsSj(this.props.record,this.props.index)} style={{color:(this.state.sxjState?'#108ee9':'red')}} href="javascript:;" >{this.state.sxjState?'上架':'下架'}</a>
         )
     }
 }
@@ -274,8 +301,8 @@ class ModalBody extends Component {
                                 {
                                     getFieldDecorator('price', {
                                         rules: [{ required: false, message: '请输入价格' }],
-                                        initialValue:''
-                                    })(<Input defaultValue={'123123'} disabled={this.props.sxjState} type="text" placeholder='请输入价格' />)
+                                        initialValue:this.props.dataSource.price
+                                    })(<Input disabled={this.props.sxjState} type="text" placeholder='请输入价格' />)
                                 }
                             </Form.Item>
                         </Col>
@@ -284,8 +311,8 @@ class ModalBody extends Component {
                                 {
                                     getFieldDecorator('qpl', {
                                         rules: [{ required: false, message: '请输入起批量' }],
-                                        initialValue:''
-                                    })(<Input value={'123123'} disabled={this.props.sxjState} type="text" placeholder='请输入起批量' />)
+                                        initialValue:this.props.dataSource.qpl
+                                    })(<Input disabled={this.props.sxjState} type="text" placeholder='请输入起批量' />)
                                 }
                             </Form.Item>
                         </Col>
@@ -296,7 +323,7 @@ class ModalBody extends Component {
                                 {
                                     getFieldDecorator('scDate', {
                                         rules: [{ required: false, message: '请输入价格' }],
-                                        initialValue:''
+                                        initialValue:this.props.dataSource.scDate
                                     })(<DatePicker
                                             showTime
                                             style={{width:'100%'}}
@@ -314,7 +341,7 @@ class ModalBody extends Component {
                                 {
                                     getFieldDecorator('setBc', {
                                         rules: [{ required: false, message: '请输入步长' }],
-                                        initialValue:''
+                                        initialValue:this.props.dataSource.setBc
                                     })(<Input disabled={this.props.sxjState} type="text" placeholder='请输入步长' />)
                                 }
                             </Form.Item>

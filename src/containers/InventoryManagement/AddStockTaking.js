@@ -69,22 +69,46 @@ class AddStockTaking extends Component {
     onChangeFc(value){
         switch(value){
             case '1':
+                value="分类";
                 this.setState({value:value});
                 break;
             case '2':
+                value="货架";
                 this.setState({value:value});
                 break;
             case '3':
+                value=<Input className="GoodsData" onChange={(e)=>{this.GetData(e)}} placeholder="请输入商品名称"/>
                 this.setState({value:value});
                 break;
             case '4':
+                value="库存";
                 this.setState({value:value});
                 break;
             default:
-                this.setState({value:0});
+                this.setState({value:""});
         }
     }
-
+    GetData(e){
+        //this.initDataSource();
+        console.log(e.target.value);
+    }
+    initDataSource(){
+        /***
+         fetch(PATH + '',{
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                mode: 'no-cors',
+                body: ''
+            }).then( (response) => response.json() ).then( (data) => {
+                // if(data.code) ...
+            }).catch( (error) => {
+                console.error(error);
+            }).done();
+         ***/
+    }
     start = ()=>{
         let data = [{
                 key: '1',
@@ -119,9 +143,7 @@ class AddStockTaking extends Component {
 
     render() {
         const  val  = this.state.value;
-        console.log(val);
-        const confirmTips = '完成后将生成盘点记录，更新库存不可修改，如果您未完成，建议您先保存。你确定完成吗？';
-        const saveTips = '保存后，可在继续盘点页面中找到该盘点继续盘点';
+        const confirmTips = '是否更新库存？更新后不可修改';
         return (
            <div style={styles.container}>
                <div className="mb-10">
@@ -135,7 +157,7 @@ class AddStockTaking extends Component {
                             </Select>
                         </Col>
                         <Col span={8}>
-                            {val}
+                            {val||""}
                         </Col>
                         <Col span={4}>
                             <p>查询条件按需求增加</p>
@@ -156,9 +178,6 @@ class AddStockTaking extends Component {
                     >
                         <Button type="primary">完成盘点</Button>
                     </Popconfirm>
-                    <Tooltip placement="right" title={saveTips} arrowPointAtCenter>
-                        <Button className="ml-10">保存</Button>
-                    </Tooltip>
                </div>
             </div>
         )
@@ -170,7 +189,6 @@ const styles = {
         color:'#333'
     }
 }
-
 function mapStateToProps(state) {
     return {
     }
