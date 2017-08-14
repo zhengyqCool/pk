@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Input, Table, Button, Row, Col,Pagination,Icon,DatePicker,Select,Radio,message} from 'antd';
 import {PropTypes} from 'prop-types';
 import { connect } from 'react-redux';
+import Moment from 'moment'
+
 import * as breadActions from '../../actions/breadActions';
 import * as cont from '../../config/constant';
 
@@ -56,7 +58,7 @@ class ReplenishmentList extends Component {
         let dispatch = this.props.dispatch;
         dispatch(breadActions.setBreads(['主页', '仓内操作','补货列表']));
 
-        this.getReplenishment();
+        this.getReplenishment()
 
     }
 
@@ -134,7 +136,13 @@ class ReplenishmentList extends Component {
                         }} />
                     </Col>
                     <Col span={7}>
-                        <RangePicker onChange={(value)=> console.log(value)} />
+                        <RangePicker 
+                            format="YYYY-MM-DD HH:mm:ss"
+                            defaultValue={[Moment('2015-06-06 15:20'), Moment('2015-06-06 18:40')]} 
+                            onChange={(data,dateStrings)=> console.log(data,dateStrings)} 
+                            showTime={{
+                                hideDisabledOptions: true,
+                        }} />
                     </Col>
                     <Col span={5}>
                         <Radio.Group onChange={this.handleSizeChange}>

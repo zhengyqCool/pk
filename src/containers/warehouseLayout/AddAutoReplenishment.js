@@ -480,7 +480,6 @@ class AddAutoReplenishment extends Component {
                     </Col>
                     <Col span={6}>
                         <RangePicker 
-                            defaultValue={['2017-05-05','2017-05-06']}
                             format="YYYY-MM-DD HH:mm:ss" 
                             onChange={(date,dateString)=> console.log(date,dateString)} 
                             showTime={{

@@ -23,6 +23,11 @@ export let doReplenishmentUrl =  '/repertory/doReplenishment.htm';//手动补货
 export let autoReplenishmentByImpermanentUrl =  '/repertory/autoReplenishmentByImpermanent.htm';//手动补货单保存
 export let finishReplenishmentUrl =  '/repertory/finishReplenishment.htm';//提交并更新库存
 
+export let inRepertoryOrderListUrl =  '/inventory/inRepertoryOrderList.htm';//入库单列表
+export let inRepertoryUrl =  '/inventory/inRepertory.htm';//新增手动入库
+
+export let orderListUrl =  '/order/orderList.htm';//订单列表
+
 
 export let aaa2url='/ss/fsf/ww.htm';
 export let aaa3url='/ss/fsf/ww.htm';
