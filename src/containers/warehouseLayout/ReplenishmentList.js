@@ -138,7 +138,7 @@ class ReplenishmentList extends Component {
                     <Col span={7}>
                         <RangePicker 
                             format="YYYY-MM-DD HH:mm:ss"
-                            defaultValue={[Moment('2015-06-06 15:20'), Moment('2015-06-06 18:40')]} 
+                            defaultValue={[Moment('2015-06-06 15:20'), Moment('2015-06-06 18:50')]} 
                             onChange={(data,dateStrings)=> console.log(data,dateStrings)} 
                             showTime={{
                                 hideDisabledOptions: true,

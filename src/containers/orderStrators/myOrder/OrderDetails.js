@@ -9,18 +9,57 @@ class OrderDetails extends Component {
     constructor(props){
         super(props)
         this.state={
+            dataSource1:[]
         }
     }
     componentDidMount() {
         let dispatch = this.props.dispatch;
         dispatch(breadActions.setBreads(['主页', '订单管理','订单详情']));
     }
-
+    initDataSource(){
+        /***
+         fetch(PATH + '',{
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                mode: 'no-cors',
+                body: ''
+            }).then( (response) => response.json() ).then( (data) => {
+                // if(data.code) ...
+            }).catch( (error) => {
+                console.error(error);
+            }).done();
+         ***/
+        let dataSource1=[{
+            key:'01',
+            goodsNo:'123456',
+            goodsName:'可口可乐',
+            brand:'可口可乐',
+            norms:'100ml*24',
+            units:'箱',
+            sku:'草莓味',
+            num:20,
+            shelf:'3#货架',
+            salver:'6#货位',
+        }];
+        return dataSource1;
+    }
+    build(){
+        let dataSource1=this.initDataSource();
+        this.setState({dataSource1});
+    }
     render(){
         return(
             <div>
+                <Row>
+                    <Col span={24} className="text-right">
+                        <Button onClick={this.build.bind(this)} type="primary">生成拣货单</Button>
+                    </Col>
+                </Row>
                 <Essential/>
-                <GoodsList/>
+                <GoodsList dataSource1={this.state.dataSource1}/>
                 <div className="text-right mt-10">
                     <Button className="mr-10" onClick={()=> this.props.history.go(-1)}>返回</Button>
                     <Button type="primary">打印拣货单</Button>
@@ -67,23 +106,11 @@ class Essential extends Component{
         )
     }
 }
-
 class GoodsList extends Component{
     constructor(props){
         super(props)
         this.state = {
-            dataSource1:[{
-                key:'01',
-                goodsNo:'123456',
-                goodsName:'可口可乐',
-                brand:'可口可乐',
-                norms:'100ml*24',
-                units:'箱',
-                sku:'草莓味',
-                num:20,
-                shelf:'3#货架',
-                salver:'6#货位',
-            }],
+            dataSource1:[],
              dataSource2:[{
                 key:'01',
                 goodsNo:'123456',
@@ -194,7 +221,7 @@ class GoodsList extends Component{
                         <div  style={styles.goodsTable}>
                             <Table 
                                 pagination={false} 
-                                dataSource={this.state.dataSource1} 
+                                dataSource={this.props.dataSource1}
                                 columns={this.columns1} 
                             />
                         </div>

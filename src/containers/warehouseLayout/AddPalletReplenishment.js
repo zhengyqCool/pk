@@ -388,6 +388,10 @@ class AddPalletReplenishment extends Component {
                     shelf:'1#货架',
                     cargospaces:'2#货位',
                     num:30,
+                 }, {
+                    shelf:'1#货架',
+                    cargospaces:'2#货位',
+                    num:30,
                 }, {
                     shelf:'1#货架',
                     cargospaces:'4#货位',

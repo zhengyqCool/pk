@@ -2,104 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Input,Cascader,AutoComplete,InputNumber} from 'antd';
 import * as warehouseLayoutAction from '../../../actions/warehouseLayout/warehouseLayoutAction';
+import * as cont from '../../../config/constant';
 
-
-//商品编号
-class EditableCell extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            optionData:[],
-        }
-    }
-    componentDidMount(){
-        this.initDataSource();
-    }
-
-    initDataSource(){
-        
-        let data = this.props.dataSource;
-        let arr = [];
-        for(let i = 0; i < data.length; i++){
-            let str = data[i].goodsNo + '/' + data[i].goodsName +'/'+ data[i].goodsNorms +'/'+ data[i].unit+'/'+ data[i].skudes
-            arr.push(str);
-        }
-        this.setState({optionData:arr});
-    }
-    onSelect(index,value){
-        let number = value.split('/')[0];
-        let o = {};
-        this.props.dataSource.forEach(function(element) {
-            if(number == element.goodsNo){
-                o = element;
-                return
-            }
-            // console.log(element);
-        }, this);
-        let dispatch = this.props.dispatch;
-
-        dispatch(warehouseLayoutAction.editTrAction(index,o))
-    }
-    render() {
-        let {text,index} = this.props;
-        return (
-            <div className="editable-cell">
-                <div className="editable-cell-input-wrapper">
-                    <AutoComplete
-                        value={text}
-                        style={{ width: 160 }}
-                        dropdownMatchSelectWidth={false} // 下拉选择框宽度不随父级
-                        dataSource={this.state.optionData} // 数据源
-                        allowClear={true} //支持清除, 单选模式有效
-                        filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-                        onSelect={(value)=> this.onSelect(index,value)} //选择回调
-                    />
-                </div>
-            </div>
-        );
-    }
-}
-
-
-//<EditableCell
-//    dispatch={props.dispatch}
-//   index={index}
-//    text={text}
-//    record={record}
-//    dataSource={this.props.goodsDataSource.initData}
-///>
-
-// //商品名称
-// class EditableCellGoods extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//         }
-//     }
-
-//     onChange(value, selectedOptions) {
-//         console.log(value, selectedOptions);
-//     }
-//     componentDidMount(){
-
-//     }   
-//     render() {
-//         return (
-//             <div className="editable-cell">
-//                 <div className="editable-cell-input-wrapper">
-//                     <Cascader
-//                         disabled={this.props.disabled}
-//                         options={options}
-//                         onChange={(value, selectedOptions)=> this.onChange(value, selectedOptions)}
-//                         placeholder="请输入商品名称"
-//                         showSearch
-//                         notFoundContent='未找到对应的商品！'
-//                     />
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
 
 
 //货架数据
@@ -126,6 +30,136 @@ const shelfOptions = [
             }]
         }
     ];
+
+
+    //商品名称
+class EditableName extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            goodsName:'',
+            optionData:[],
+        }
+    }
+    componentDidMount(){
+        this.initDataSource();
+    }
+
+    initDataSource(){
+        let data = this.props.dataSource;
+        let arr = [];
+        for(let i = 0; i < data.length; i++){
+            arr.push(data[i].goodsName);
+        }
+        return arr;
+    }
+    NameChange(value,num){
+         if(!value){return ;}
+        var reg=new RegExp(value);
+        let arr=this.initDataSource();
+            arr=arr.filter((item,index)=>{
+            return reg.test(item);
+        });
+        //根据商品名获取商品
+        let goods = [];
+        let p = {'name':value}
+        fetch(cont.getURL(cont.findGoodsListByNameUrl),{
+            method:'post',
+            headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body:cont.getPostParams(p)
+            }).then( (response) =>response.json()).then( (data) => {
+                goods.push(data);
+            }).catch((err) => {
+                console.log(err);
+            });
+        let obj={};
+        ary.forEach((item)=>{
+            if(!obj[item.goodsxName]){
+                obj[item.goodsxName]=[];
+            }
+            obj[item.goodsxName]=item.sxValueList;
+        });
+        let data=[],children=[];
+        for(let key in obj){
+            if(children.length==0){
+                obj[key].forEach((item)=>{
+                    let tempObj={};
+                    tempObj.value=item.value;
+                    tempObj.label=item.value;
+                    tempObj.children=[];
+                    children.push(tempObj);
+                })
+            }else{
+                let tempAry=[];
+                obj[key].forEach((item)=>{
+                    let tempObj={};
+                    tempObj.value=item.value;
+                    tempObj.label=item.value;
+                    tempObj.children=[];
+                    tempAry.push(tempObj);
+                })
+                children.forEach((item)=>{
+                    item.children=tempAry;
+                })
+                data=data.concat(children);
+                console.log(data,children);
+                children=tempAry;
+            }
+        }
+        data=data.slice(0,ary[0].sxValueList.length);
+        console.log(data,obj);
+        options=data;
+        this.props.goodsList[num]={
+            key:num,
+            XS:true,
+            goodsName:value
+        };
+        this.setState({optionData:arr,goodsName:value,});
+    }
+    onSelect(index,value,num){
+        let number = value.split('/')[0];
+        let o = {};
+        this.props.dataSource.forEach(function(element) {
+            if(number == element.goodsNo){
+                o = element;
+                return
+            }
+        }, this);
+        this.props.goodsList[num]={
+          key:num,
+          XS:true,
+        goodsName:value
+        };
+        let dispatch = this.props.dispatch;
+        dispatch(warehouseLayoutAction.editTrAction(index,o));
+    }
+    render() {
+        let {text,record,index} = this.props;
+        return (
+            <div className="editable-cell">
+                <div className="editable-cell-input-wrapper">
+                    <AutoComplete
+                        value={this.props.goodsList[index].goodsName||this.state.goodsName} // 默认值
+                        style={{ width: 160 }}
+                        dropdownMatchSelectWidth={false} // 下拉选择框宽度不随父级
+                        dataSource={this.state.optionData} // 数据源
+                        placeholder="输入商品名称"
+                        allowClear={true} //支持清除, 单选模式有效
+                        filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                        onSelect={(value)=> this.onSelect(index,value,this.props.index)} //选择回调
+                        onChange={(value)=>{this.NameChange(value,this.props.index)}}
+                    />
+                </div>
+            </div>
+        );
+    }
+}
+
+
+
 
 
 class EditableTable extends Component {

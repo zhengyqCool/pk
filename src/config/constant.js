@@ -28,12 +28,12 @@ export let inRepertoryUrl =  '/inventory/inRepertory.htm';//新增手动入库
 
 export let orderListUrl =  '/order/orderList.htm';//订单列表
 
+export const findGoodsListByNameUrl = '/goods/criteria/findGoodsListByName.htm';//根据商品名检索商品
+export const findGoodsByTiaomaUrl = '/goods/criteria/findGoodsByTiaoma.htm';//根据国际码查找商品
 
-export let aaa2url='/ss/fsf/ww.htm';
-export let aaa3url='/ss/fsf/ww.htm';
-export let aaa4url='/ss/fsf/ww.htm';
 export function getURL(url) {
-    return 'http://' + basicUrl + ((basicPort === null || basicPort === '') ? '' : (':' + basicPort)) + url;
+    // return 'http://' + basicUrl + ((basicPort === null || basicPort === '') ? '' : (':' + basicPort)) + url;
+    return url;
 }
 
 export function getPostParams(obj) {
