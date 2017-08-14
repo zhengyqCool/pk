@@ -32,8 +32,8 @@ const styles = {
         borderStyle:'solid'
     }
 };
-class AddStockRemoval extends Component {
-   constructor(props){
+class StockRemovalDetail extends Component {
+    constructor(props){
         super(props)
         this.state={
             Data:{}
@@ -58,53 +58,26 @@ class AddStockRemoval extends Component {
          ***/
         let STObj={OrderNo:344567,OrderTime:"2017-07-31 12:00:00",OrderPayStyle:"货到付款",OrderName:"谢知非",OrderAddress:"中原区秦岭路国家大学科技园",OrderPS:"子非鱼，安知鱼之乐",OrderList:[{key:'01', goodsNo:'123456', goodsName:'可口可乐', brand:'可口可乐',norms:'100ml*24', units:'箱', sku:'草莓味', num:20, price:20.00, subtotal:400.00,},{key:'02', goodsNo:'9527', goodsName:'辣条', brand:'可口可乐', norms:'100ml*24', units:'箱', sku:'草莓味', num:10, price:10.00, subtotal:100.00,}],OrderType:"待发货",goodsNumber:2,totalNumber:30,OrderPay:500.00,ShouldPay:500.00,UsePay:0};
         return STObj;
-   }
+    }
     componentDidMount() {
-        let dispatch = this.props.dispatch;
-        dispatch(breadActions.setBreads(['主页', '出库管理','商品出库','拣货单出库']));
-    }
-    FetchData(record,i,value){
-       let Data=this.state.Data,totalMoney=0,totalNum=0;
-       Data.OrderList.forEach((item,index)=>{
-           if(index==i){
-               item.num=value;
-               item.subtotal=item.num*item.price;
-           }
-           totalNum=totalNum+Number(item.num);
-           totalMoney=totalMoney+Number(item.subtotal);
-       });
-        Data.OrderPay=totalMoney;
-        Data.ShouldPay=totalMoney;
-        Data.totalNumber=totalNum;
-        this.setState({Data});
-    }
-    onEnter(e){
-        let value=e.target.value;
         let Data=this.initDataSource();
         this.setState({Data});
+        let dispatch = this.props.dispatch;
+        dispatch(breadActions.setBreads(['主页', '出库管理','商品出库','商品详情']));
+    }
+    Back(){
+        history.back();
     }
     render(){
-        let jhdData = ['1231231','2342342','346547567','87978909678']
         return(
             <div>
-                <div style={styles.headerCss}>
-                    <Row>
-                        <Col span={6}>
-                            <Input placeholder="请输入拣货单号" onPressEnter={(e)=>{this.onEnter(e)}}/>
-                        </Col>
-                        <Col span={12} className="text-right">
-                            <Button onClick={()=>{this.props.history.go(-1)}} type="primary">返回</Button>
-                        </Col>
-                    </Row>
-                </div>
                 <div className="text-center mb-20">
                     <h2 style={styles.title}>配客商贸发货单</h2>
                 </div>
                 <Essential Data={this.state.Data}/>
-                <GoodsList Data={this.state.Data} FetchData={this.FetchData.bind(this)}/>
+                <GoodsList Data={this.state.Data}/>
                 <div className="text-right mt-10">
-                    <Checkbox style={{color:'#585858'}} defaultChecked={true} onChange={(e)=>console.log(e.target.checked)}>并打印发货单</Checkbox>
-                    <Button className="ml-10" type="primary">确认出库</Button>
+                    <Button className="ml-10" type="primary" onClick={this.Back}>返回</Button>
                 </div>
             </div>
         )
@@ -123,7 +96,7 @@ class Essential extends Component{
             <div style={styles.conatiern}>
                 <Row style={{marginBottom:10}}>
                     <Col span={8}>
-                         <p> <label>订单编号 : </label><span>{this.props.Data.OrderNo}</span> </p>
+                        <p> <label>订单编号 : </label><span>{this.props.Data.OrderNo}</span> </p>
                     </Col>
                     <Col span={8}>
                         <p> <label>下单时间 : </label><span>{this.props.Data.OrderTime}</span> </p>
@@ -137,7 +110,7 @@ class Essential extends Component{
                         <p> <label>下单客户 : </label><span>{this.props.Data.OrderName}</span> </p>
                     </Col>
                     <Col span={8}>
-                       <p> <label>详细地址 : </label><span>{this.props.Data.OrderAddress}</span> </p>
+                        <p> <label>详细地址 : </label><span>{this.props.Data.OrderAddress}</span> </p>
                     </Col>
                     <Col span={8}>
                         <p> <label>订单备注 : </label><span>{this.props.Data.OrderPS}</span> </p>
@@ -152,7 +125,7 @@ class GoodsList extends Component{
     constructor(props){
         super(props)
         this.state = {
-             dataSource:[{
+            dataSource:[{
                 key:'01',
                 goodsNo:'123456',
                 goodsName:'可口可乐',
@@ -204,19 +177,16 @@ class GoodsList extends Component{
             title: '数量',
             dataIndex: 'num',
             key:'num',
-            render:(ext, record, index)=> (
-                <InputNumber min={1} value={this.props.Data.OrderList[index].num} onChange={(value)=>{this.StNumberChange(record,index,value)}}/>
-            )
         }
-        ,{
-            title: '价格',
-            dataIndex: 'price',
-            key:'price'
-        },{
-            title: '小计（元）',
-            dataIndex: 'subtotal',
-            key:'subtotal'
-        }];
+            ,{
+                title: '价格',
+                dataIndex: 'price',
+                key:'price'
+            },{
+                title: '小计（元）',
+                dataIndex: 'subtotal',
+                key:'subtotal'
+            }];
     }
     callback = (key)=> {
         console.log(key)
@@ -227,10 +197,10 @@ class GoodsList extends Component{
     render(){
         return(
             <div style={styles.goodsList}>
-                <Table 
-                    pagination={false} 
+                <Table
+                    pagination={false}
                     dataSource={this.props.Data.OrderList}
-                    columns={this.columns} 
+                    columns={this.columns}
                 />
                 <div style={styles.footerList}>
                     <Row>
@@ -262,4 +232,4 @@ function mapStateToProps(state) {
     return {
     }
 }
-export default connect(mapStateToProps)(AddStockRemoval);
+export default connect(mapStateToProps)(StockRemovalDetail);

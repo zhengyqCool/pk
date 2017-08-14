@@ -58,7 +58,7 @@ class StockRemoval extends Component {
             render:(text,record,index)=>{
                 return(
                     <div>
-                        <a href="javascript:;">查看详情</a> 
+                        <a onClick={()=> this.Detail(record)} href="javascript:;">查看详情</a> 
                     </div>
                 )
             }
@@ -67,6 +67,14 @@ class StockRemoval extends Component {
     componentDidMount() {
         let dispatch = this.props.dispatch;
         dispatch(breadActions.setBreads(['主页', '出库管理','手动出库']));
+    }
+
+    Detail(record){
+        if(record != null){
+            this.props.history.push('/stockRemovalStrator/StockRemovalDetail/'+record.id);
+        }else{
+            this.props.history.push('/stockRemovalStrator/StockRemovalDetail/'+0);
+        }
     }
     render() {
         return (

@@ -50,6 +50,8 @@ import StockRemoval from './stockRemovalStrator/StockRemoval';
 import AddStockRemoval from './stockRemovalStrator/AddStockRemoval';
 import ManualStockRemoval from './stockRemovalStrator/ManualStockRemoval';
 
+import StockRemovalDetail from './stockRemovalStrator/StockRemovalDetail';
+
 
 class App extends Component { 
     handleDisabledChange = (disabled) => {
@@ -108,6 +110,7 @@ class App extends Component {
                             <Route path='/InventoryManagement/StockTaking' component={stockTaking} />
                             <Route path='/InventoryManagement/AddStockTaking' component={addStockTaking} />
                             <Route path='/InventoryManagement/ContinueTaking' component={ContinueTaking} />
+                            <Route path='/stockRemovalStrator/StockRemovalDetail' component={StockRemovalDetail} />
                             
                             <Route path='/stockRemovalStrator/StockRemoval' component={StockRemoval} />
                             <Route path='/stockRemovalStrator/AddStockRemoval' component={AddStockRemoval} />
